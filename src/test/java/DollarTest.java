@@ -37,6 +37,14 @@ public class DollarTest {
     }
 
     @Test
+    public void testReduceMoneyDifferentCurrency() {
+        Bank bank= new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Money result= bank.reduce(Money.franc(2), "USD");
+        assertThat(result, is(Money.dollar(1)));
+    }
+
+    @Test
     public void testPlusReturnsSum() {
         Money five= Money.dollar(5);
         Expression result= five.plus(five);
@@ -67,10 +75,13 @@ public class DollarTest {
     }
 
     @Test
-    public void testReduceMoneyDifferentCurrency() {
+    public void testMixedAddition() {
+        Money fiveBucks= Money.dollar(5);
+        Money tenFrancs= Money.franc(10);
         Bank bank= new Bank();
         bank.addRate("CHF", "USD", 2);
-        Money result= bank.reduce(Money.franc(2), "USD");
-        assertThat(result, is(Money.dollar(1)));
+        Money result= bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+        assertThat(result, is(Money.dollar(10)));
     }
+
 }
