@@ -1,7 +1,7 @@
 /**
  * Created by rashid on 15/6/16.
  */
-public class Money implements Expression{
+public class Money implements Expression {
     protected int amount;
     protected String currency;
 
@@ -10,7 +10,8 @@ public class Money implements Expression{
         this.currency = currency;
     }
 
-    Money times(int multiplier){
+    @Override
+    public Expression times(int multiplier) {
         return new Money(amount * multiplier, currency);
     }
 
@@ -36,10 +37,11 @@ public class Money implements Expression{
 
     @Override
     public String toString() {
-        return amount + "" + currency ;
+        return amount + "" + currency;
     }
 
-    public Expression plus(Money anotherMoney) {
+    @Override
+    public Expression plus(Expression anotherMoney) {
         return new Sum(this, anotherMoney);
     }
 
