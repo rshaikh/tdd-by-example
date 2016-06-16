@@ -46,12 +46,12 @@ public class MoneyTest {
         assertThat(reduced, is(Money.dollar(10)));
     }
 
-    @Test
-    public void plus_should_return_a_sum_expression() {
-        Sum sum = (Sum) Money.dollar(10).plus(Money.dollar(15));
-        assertThat(sum.moneyOne, is(Money.dollar(10)));
-        assertThat(sum.moneyTwo, is(Money.dollar(15)));
-    }
+//    @Test
+//    public void plus_should_return_a_sum_expression() {
+//        Sum sum = (Sum) Money.dollar(10).plus(Money.dollar(15));
+//        assertThat(sum.moneyOne, is(Money.dollar(10)));
+//        assertThat(sum.moneyTwo, is(Money.dollar(15)));
+//    }
 
     @Test
     public void bank_should_reduce_money_to_itself() {
@@ -70,21 +70,31 @@ public class MoneyTest {
 
     @Test
     public void it_should_add_different_currencies() {
-        Money fiveBucks= Money.dollar(5);
-        Money tenFrancs= Money.franc(10);
-        Bank bank= new Bank();
-        bank.addRate("CHF", "USD", 2);
-        Money result= bank.reduce(fiveBucks.plus(tenFrancs), "USD");
-        assertThat(result, is(Money.dollar(10)));
-    }
-
-    /*@Test
-    public void plus_on_expressions() {
         Expression fiveBucks= Money.dollar(5);
         Expression tenFrancs= Money.franc(10);
         Bank bank= new Bank();
         bank.addRate("CHF", "USD", 2);
         Money result= bank.reduce(fiveBucks.plus(tenFrancs), "USD");
         assertThat(result, is(Money.dollar(10)));
-    }*/
+    }
+
+    @Test
+    public void plus_on_expressions() {
+        Expression fiveBucks= Money.dollar(5);
+        Expression tenFrancs= Money.franc(10);
+        Bank bank= new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Money result= bank.reduce(fiveBucks.plus(tenFrancs).plus(Money.dollar(5)), "USD");
+        assertThat(result, is(Money.dollar(15)));
+    }
+
+    @Test
+    public void times_on_expressions() {
+        Expression fiveBucks= Money.dollar(5);
+        Expression tenFrancs= Money.franc(10);
+        Bank bank= new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Money result= bank.reduce(fiveBucks.plus(tenFrancs).times(2).times(2), "USD");
+        assertThat(result, is(Money.dollar(40)));
+    }
 }
