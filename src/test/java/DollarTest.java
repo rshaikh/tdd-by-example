@@ -11,21 +11,14 @@ public class DollarTest {
     @Test
     public void testEquality() throws Exception {
         assertThat(Money.dollar(5), is(Money.dollar(5)));
-        assertThat(Money.franc(5), is(Money.franc(5)));
+        assertThat(Money.franc(5), not(Money.franc(6)));
         assertThat(Money.franc(5), not(Money.dollar(5)));
     }
 
     @Test
-    public void testTimesDollar() {
+    public void testTimesMoney() {
         Money dollar = Money.dollar(5);
         assertThat(dollar.times(2), is(Money.dollar(10)));
-    }
-
-
-    @Test
-    public void testTimesFranc() {
-        Money franc = Money.franc(5);
-        assertThat(franc.times(2), is(Money.franc(10)));
     }
 
     @Test
