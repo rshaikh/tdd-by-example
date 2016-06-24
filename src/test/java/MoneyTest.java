@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by rashid on 15/6/16.
  */
-public class DollarTest {
+public class MoneyTest {
     @Test
     public void testEquality() throws Exception {
         assertThat(Money.dollar(5), is(Money.dollar(5)));
